@@ -1,0 +1,31 @@
+FROM golang:@@golang@@-alpine as builder
+
+WORKDIR /app
+RUN wget -O krakend.tar.gz "https://github.com/devopsfaith/krakend-ce/archive/refs/tags/v@@version@@.tar.gz"; \
+	tar -xzf krakend.tar.gz -C /app --strip-components 1
+RUN ls /app
+RUN apk add make gcc musl-dev
+
+
+RUN make build
+
+FROM alpine:@@alpine@@
+
+LABEL maintainer="community@krakend.io"
+ENV VERSION="@@version@@"
+
+RUN apk add --no-cache ca-certificates && \
+	adduser -u 1000 -S -D -H krakend && \
+	mkdir /etc/krakend && \
+	echo '{ "version": @@config_version@@ }' > /etc/krakend/krakend.json
+
+COPY --from=builder /app/krakend /usr/bin/krakend
+
+USER 1000
+
+WORKDIR /etc/krakend
+
+ENTRYPOINT [ "/usr/bin/krakend" ]
+CMD [ "run", "-c", "/etc/krakend/krakend.json" ]
+
+EXPOSE 8080 8090
