@@ -3,7 +3,7 @@
 #
 # PLEASE DO NOT EDIT IT DIRECTLY.
 #
-FROM golang:1.16.4-alpine as builder
+FROM golang:1.16.4-alpine3.13 as builder
 
 WORKDIR /app
 RUN wget -O krakend.tar.gz "https://github.com/devopsfaith/krakend-ce/archive/refs/tags/v1.4.1.tar.gz"; \
@@ -14,7 +14,7 @@ RUN apk add make gcc musl-dev
 
 RUN make build
 
-FROM alpine:3.14
+FROM alpine:3.13
 
 LABEL maintainer="community@krakend.io"
 ENV VERSION="1.4.1"
