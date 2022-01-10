@@ -23,7 +23,7 @@ replace_variables() # Args: $var $value $file
     # Escape problematic character for sed:
     var_content="$(echo $2 | sed -e 's/[\/&]/\\&/g')"
     # Replace @@VARS@@ with its desired value:
-    sed -i "s#@@${1}@@#${var_content}#" "$3"
+    sed -i "s#@@${1}@@#${var_content}#g" "$3"
     echo "[OK] Var @@$1@@ written"
 }
 

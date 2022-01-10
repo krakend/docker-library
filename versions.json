@@ -2,11 +2,13 @@
   "1.4.1": {
     "alpine": "3.13",
     "golang": "1.16.4",
+    "sha512sum": "e1c67279609fd006b607a9b498865175324792f0174a188bf1ccc288633b715e77341c738c020de218bdf9e852271365c75361b2941edd05ebeebd4d86166643",
     "config_version": 2
   },
   "1.3.0": {
     "alpine": "3.13",
     "golang": "1.15.8",
+    "sha512sum": "6d98051a3db8ee9c9b864b8acf5d9d821fe8fa9a439242a1b8d452a5e217eefef85ab0ce6ef8a0dc86ccc1cbedf4415a1e464081ccb76a69de0f88747395f994",
     "config_version": 2
   }
 }
