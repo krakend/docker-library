@@ -65,5 +65,5 @@ for version in $versions; do
     done
 
     check_missing_vars "$dockerfile"
-
+    cp -p docker-entrypoint.sh $version/docker-entrypoint.sh
 done
