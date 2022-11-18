@@ -7,7 +7,7 @@ FROM alpine:3.16
 
 LABEL maintainer="community@krakend.io"
 
-ENV VERSION="2.1.23"
+ENV KRAKEND_VERSION="2.1.3"
 
 WORKDIR /
 
@@ -17,16 +17,16 @@ RUN set -eux; \
 	case "$arch" in \
 		'x86_64') \
 			export GOARCH='amd64' GOOS='linux'; \
-			export KRAKEND_DOWNLOAD_SHA512=b6c71fa6619b7a3cb35b68b7460992885ed51ed771c52c1fcd7954d48b897f00e3d5743b7e434047653243b903b02c9fdd08c847db389e978c98bfeb05d1b4db; \
+			export KRAKEND_DOWNLOAD_SHA512=a3e350bf7627ece93e6a299d7ffea83c48cc41bad5013b772fc8d6c6bc113d397d29e8e5572c57c3edf38439940165219146912889bf12ba36d1a4abe20e6ed1; \
 			;; \
 		'aarch64') \
 			export GOARCH='arm64' GOOS='linux'; \
-			export KRAKEND_DOWNLOAD_SHA512=9c4b0b823db30a6044d5d9f35f69915d10c7d59a61fb66d05e391a5bf35e6461e70696864e619a5907eabbc5d3c414a6193801ee529a0e47c980c21ec8c3e611; \
+			export KRAKEND_DOWNLOAD_SHA512=420ccbd28b0b1545267fc8a36b66c50b28b44fbda109a002f725529881c49e4593b8ebdfbc96c5547741e7fd5a8cb006a140562d86668db2ae58b5b016f0d83e; \
 			;; \
 		*) echo >&2 "error: unsupported architecture '$TARGETARCH' (likely packaging update needed)"; exit 1 ;; \
 	esac; \
-    wget -O krakend.tar.gz "https://github.com/taik0/krakend-ce/releases/download/v2.1.23/krakend_2.1.23_${GOARCH}_alpine.tar.gz"; \
-    wget -O krakend.tar.gz.asc "https://github.com/taik0/krakend-ce/releases/download/v2.1.23/krakend_2.1.23_${GOARCH}_alpine.tar.gz.asc"; \
+    wget -O krakend.tar.gz "https://github.com/krakendio/krakend-ce/releases/download/v2.1.3/krakend_2.1.3_${GOARCH}_alpine.tar.gz"; \
+    wget -O krakend.tar.gz.asc "https://github.com/krakendio/krakend-ce/releases/download/v2.1.3/krakend_2.1.3_${GOARCH}_alpine.tar.gz.asc"; \
     export GNUPGHOME="$(mktemp -d)"; \
     gpg --batch --keyserver keyserver.ubuntu.com --recv-keys 5B270F2E01E375FD9D5635E25DE6FD698AD6FDD2; \
     gpg --batch --verify krakend.tar.gz.asc krakend.tar.gz; \
