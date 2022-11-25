@@ -7,8 +7,6 @@ FROM alpine:3.16
 
 LABEL maintainer="community@krakend.io"
 
-ENV KRAKEND_VERSION="2.1.3"
-
 WORKDIR /
 
 RUN apk add --no-cache --virtual .build-deps gnupg
@@ -21,7 +19,7 @@ RUN set -eux; \
 			;; \
 		'aarch64') \
 			export GOARCH='arm64' GOOS='linux'; \
-			export KRAKEND_DOWNLOAD_SHA512=420ccbd28b0b1545267fc8a36b66c50b28b44fbda109a002f725529881c49e4593b8ebdfbc96c5547741e7fd5a8cb006a140562d86668db2ae58b5b016f0d83e; \
+			export KRAKEND_DOWNLOAD_SHA512=630a462aa0b7050d28efcd7863d92592035558ad585d7c8da6809ccdb135764fce860b60cd6aad72f55182faf9298827a3cd078111e92bdaa7e35ded8f67b317; \
 			;; \
 		*) echo >&2 "error: unsupported architecture '$TARGETARCH' (likely packaging update needed)"; exit 1 ;; \
 	esac; \

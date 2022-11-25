@@ -2,8 +2,6 @@ FROM alpine:@@alpine@@
 
 LABEL maintainer="community@krakend.io"
 
-ENV KRAKEND_VERSION="@@version@@"
-
 WORKDIR /
 
 RUN apk add --no-cache --virtual .build-deps gnupg
