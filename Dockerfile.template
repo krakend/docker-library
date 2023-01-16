@@ -1,20 +1,17 @@
-FROM alpine:@@alpine@@
+FROM --platform=$BUILDPLATFORM alpine:@@alpine@@ as builder
 
 LABEL maintainer="community@krakend.io"
-
-ENV KRAKEND_VERSION="@@version@@"
 
 WORKDIR /
 
 RUN apk add --no-cache --virtual .build-deps gnupg
 RUN set -eux; \
-    arch="$(apk --print-arch)"; \
-	case "$arch" in \
-		'x86_64') \
+    case "$TARGETARCH" in \
+        'amd64') \
 			export GOARCH='amd64' GOOS='linux'; \
 			export KRAKEND_DOWNLOAD_SHA512=@@sha512sum_amd64@@; \
 			;; \
-		'aarch64') \
+		'arm64') \
 			export GOARCH='arm64' GOOS='linux'; \
 			export KRAKEND_DOWNLOAD_SHA512=@@sha512sum_arm64@@; \
 			;; \
@@ -30,11 +27,15 @@ RUN set -eux; \
 	rm -f krakend.tar.gz krakend.tar.gz.asc; \
 	apk del --no-network .build-deps
 
+FROM alpine:@@alpine@@
+
+LABEL maintainer="community@krakend.io"
+
+WORKDIR /etc/krakend
+
 RUN apk add --no-cache --virtual .run-deps ca-certificates su-exec tzdata && \
 	adduser -u 1000 -S -D -H krakend && \
 	echo '{ "version": @@config_version@@ }' > /etc/krakend/krakend.json
-
-WORKDIR /etc/krakend
 
 COPY docker-entrypoint.sh /
 ENTRYPOINT [ "/docker-entrypoint.sh" ]

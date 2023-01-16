@@ -3,27 +3,28 @@
 #
 # PLEASE DO NOT EDIT IT DIRECTLY.
 #
-FROM --platform=$BUILDPLATFORM alpine:3.16 as builder
+FROM --platform=$BUILDPLATFORM alpine:3.17 as builder
 
 LABEL maintainer="community@krakend.io"
 
 WORKDIR /
 
+ARG TARGETARCH
 RUN apk add --no-cache --virtual .build-deps gnupg
 RUN set -eux; \
     case "$TARGETARCH" in \
         'amd64') \
 			export GOARCH='amd64' GOOS='linux'; \
-			export KRAKEND_DOWNLOAD_SHA512=a3e350bf7627ece93e6a299d7ffea83c48cc41bad5013b772fc8d6c6bc113d397d29e8e5572c57c3edf38439940165219146912889bf12ba36d1a4abe20e6ed1; \
+			export KRAKEND_DOWNLOAD_SHA512=b890db5172b6a9add480291f233bff01e678323bd49d638dbdaa8fe02bf512307c62e39841f3b0736ff44eab6ee070a7724f03fe385f67a47b11fbd81a3bd039; \
 			;; \
 		'arm64') \
 			export GOARCH='arm64' GOOS='linux'; \
-			export KRAKEND_DOWNLOAD_SHA512=420ccbd28b0b1545267fc8a36b66c50b28b44fbda109a002f725529881c49e4593b8ebdfbc96c5547741e7fd5a8cb006a140562d86668db2ae58b5b016f0d83e; \
+			export KRAKEND_DOWNLOAD_SHA512=a6b1dc5127c4a13cf64d98e5e85ec7febf2b6fc1c3d131dd77398caa37de4eac2ca7c28771333e6b9eb635ace2e4dc7cc979f3890acbcd62b277f551e6bc7834; \
 			;; \
 		*) echo >&2 "error: unsupported architecture '$TARGETARCH' (likely packaging update needed)"; exit 1 ;; \
 	esac; \
-    wget -O krakend.tar.gz "https://github.com/krakendio/krakend-ce/releases/download/v2.1.3/krakend_2.1.3_${GOARCH}_alpine.tar.gz"; \
-    wget -O krakend.tar.gz.asc "https://github.com/krakendio/krakend-ce/releases/download/v2.1.3/krakend_2.1.3_${GOARCH}_alpine.tar.gz.asc"; \
+    wget -O krakend.tar.gz "https://github.com/krakendio/krakend-ce/releases/download/v2.1.4/krakend_2.1.4_${GOARCH}_alpine.tar.gz"; \
+    wget -O krakend.tar.gz.asc "https://github.com/krakendio/krakend-ce/releases/download/v2.1.4/krakend_2.1.4_${GOARCH}_alpine.tar.gz.asc"; \
     export GNUPGHOME="$(mktemp -d)"; \
     gpg --batch --keyserver keyserver.ubuntu.com --recv-keys 5B270F2E01E375FD9D5635E25DE6FD698AD6FDD2; \
     gpg --batch --verify krakend.tar.gz.asc krakend.tar.gz; \
@@ -32,9 +33,9 @@ RUN set -eux; \
 	rm -f krakend.tar.gz krakend.tar.gz.asc; \
 	apk del --no-network .build-deps
 
-FROM alpine:3.16
+FROM alpine:3.17
 
-LABEL maintainer="community@krakend.io"
+LABEL maintainer="support@krakend.io"
 
 WORKDIR /etc/krakend
 
