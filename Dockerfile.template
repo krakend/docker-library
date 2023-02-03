@@ -4,6 +4,7 @@ LABEL maintainer="community@krakend.io"
 
 WORKDIR /
 
+ARG TARGETARCH
 RUN apk add --no-cache --virtual .build-deps gnupg
 RUN set -eux; \
     case "$TARGETARCH" in \
@@ -36,6 +37,8 @@ WORKDIR /etc/krakend
 RUN apk add --no-cache --virtual .run-deps ca-certificates su-exec tzdata && \
 	adduser -u 1000 -S -D -H krakend && \
 	echo '{ "version": @@config_version@@ }' > /etc/krakend/krakend.json
+
+COPY --from=builder /usr/bin/krakend /usr/bin/krakend
 
 COPY docker-entrypoint.sh /
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
