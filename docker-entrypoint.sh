@@ -26,7 +26,13 @@ fi
 
 # check for the expected command
 if [ "$1" = 'krakend' ]; then
-    # use gosu (or su-exec) to drop to a non-root user
+    # krakend user has uid 1000
+    # https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+    # runAsUser: 1000
+    if [ "$(id -u)" = 1000 ]; then
+        exec "$@"    
+    else
+    # use su-exec to drop to a non-root user
     exec su-exec krakend "$@"
 fi
 
