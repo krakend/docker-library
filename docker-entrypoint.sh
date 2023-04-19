@@ -32,8 +32,9 @@ if [ "$1" = 'krakend' ]; then
     if [ "$(id -u)" = 1000 ]; then
         exec "$@"    
     else
-    # use su-exec to drop to a non-root user
-    exec su-exec krakend "$@"
+        # use su-exec to drop to a non-root user
+        exec su-exec krakend "$@"
+    fi
 fi
 
 # else default to run whatever the user wanted like "bash" or "sh"
