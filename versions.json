@@ -52,5 +52,11 @@
     "sha512sum_amd64": "b5879bd41b0a6e66cabf6d11b2aa92b372f57e50abd64993cd3a9ef7a8f8bcb78726d4d5fcac63e31f6ee6d0d57dbf984fafd6c87c523e474efb0e270568b846",
     "sha512sum_arm64": "166e7dbf5450752191c08dc5cdba1a2f41e6a2ee825c93f4b5f7b7dbeecd2b5ec4f5282abc5ae9d7172ff5a86348e12a56cf963ad3fe1053b2dfac088433b15d",
     "config_version": 3
+  },
+  "2.4.1": {
+    "alpine": "3.18",
+    "sha512sum_amd64": "a0fff1c6a16cc12ae2b82ae94ebfacff7e1ce3678e81eb39fce7f61ae4c697ffd1d83b0c30a09534652df4daa2f7d2a1ebb5a99806afe8758adb59c340e58c7b",
+    "sha512sum_arm64": "aa371b49bb8b75887d5a1318017fb94cb8cf7ad73daee910534f9414287cd704acb5dafb48bf63d7e29018c65545a498120686017194a9ae92c91edff9b9f21d",
+    "config_version": 3
   }
 }
