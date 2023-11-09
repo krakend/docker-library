@@ -9,7 +9,7 @@ LABEL maintainer="community@krakend.io"
 
 WORKDIR /
 
-RUN apk add --no-cache --virtual .build-deps gnupg
+RUN apk upgrade --no-cache --no-interactive && apk add --no-cache --virtual .build-deps gnupg
 RUN set -eux; \
     arch="$(apk --print-arch)"; \
 	case "$arch" in \
