@@ -10,7 +10,7 @@ LABEL maintainer="community@krakend.io"
 WORKDIR /
 
 ARG TARGETARCH
-RUN apk upgrade --no-cache --no-interactive && apk add --no-cache --virtual .build-deps gnupg
+RUN apk add --no-cache --virtual .build-deps gnupg
 RUN set -eux; \
     case "$TARGETARCH" in \
         'amd64') \
@@ -39,7 +39,7 @@ LABEL maintainer="community@krakend.io"
 
 WORKDIR /etc/krakend
 
-RUN apk add --no-cache --virtual .run-deps ca-certificates su-exec tzdata && \
+RUN apk upgrade --no-cache --no-interactive && apk add --no-cache --virtual .run-deps ca-certificates su-exec tzdata && \
 	adduser -u 1000 -S -D -H krakend && \
 	echo '{ "version": 3 }' > /etc/krakend/krakend.json
 
