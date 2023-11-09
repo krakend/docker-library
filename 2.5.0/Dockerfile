@@ -9,7 +9,7 @@ LABEL maintainer="community@krakend.io"
 
 WORKDIR /
 
-RUN apk upgrade --no-cache --no-interactive && apk add --no-cache --virtual .build-deps gnupg
+RUN apk add --no-cache --virtual .build-deps gnupg
 RUN set -eux; \
     arch="$(apk --print-arch)"; \
 	case "$arch" in \
@@ -33,7 +33,7 @@ RUN set -eux; \
 	rm -f krakend.tar.gz krakend.tar.gz.asc; \
 	apk del --no-network .build-deps
 
-RUN apk add --no-cache --virtual .run-deps ca-certificates su-exec tzdata && \
+RUN apk upgrade --no-cache --no-interactive && apk add --no-cache --virtual .run-deps ca-certificates su-exec tzdata && \
 	adduser -u 1000 -S -D -H krakend && \
 	echo '{ "version": 3 }' > /etc/krakend/krakend.json
 
