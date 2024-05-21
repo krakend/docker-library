@@ -5,7 +5,7 @@
 #
 FROM alpine:3.16
 
-LABEL maintainer="community@krakend.io"
+LABEL org.opencontainers.image.authors="community@krakend.io"
 
 RUN set -eux; \
     apk add --no-cache --virtual .run-deps ca-certificates su-exec tzdata; \
