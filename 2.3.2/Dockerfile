@@ -7,10 +7,12 @@ FROM alpine:3.17
 
 LABEL maintainer="community@krakend.io"
 
-WORKDIR /
-
-RUN apk add --no-cache --virtual .build-deps gnupg
 RUN set -eux; \
+    apk add --no-cache --virtual .run-deps ca-certificates su-exec tzdata; \
+	adduser -u 1000 -S -D -H krakend;
+
+RUN set -eux; \
+	apk add --no-cache --virtual .build-deps gnupg; \
     arch="$(apk --print-arch)"; \
 	case "$arch" in \
 		'x86_64') \
@@ -31,10 +33,7 @@ RUN set -eux; \
     tar xzf krakend.tar.gz -C / --strip-components 1; \
 	echo "$KRAKEND_DOWNLOAD_SHA512 *krakend.tar.gz" | sha512sum -c; \
 	rm -f krakend.tar.gz krakend.tar.gz.asc; \
-	apk del --no-network .build-deps
-
-RUN apk add --no-cache --virtual .run-deps ca-certificates su-exec tzdata && \
-	adduser -u 1000 -S -D -H krakend && \
+	apk del --no-network .build-deps; \
 	echo '{ "version": 3 }' > /etc/krakend/krakend.json
 
 WORKDIR /etc/krakend
