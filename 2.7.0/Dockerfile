@@ -15,11 +15,11 @@ RUN set -eux; \
     case "$TARGETARCH" in \
         'amd64') \
 			export GOARCH='amd64' GOOS='linux'; \
-			export KRAKEND_DOWNLOAD_SHA512=ca3885fe1ab93e9a290c15cf1f3efe09cce421f6ff6c12b4aae5c786ad1a02b6ecb4a62d334b29f7838f1b2756e91fd73983a4c81eed8e7b008989478ef605c5; \
+			export KRAKEND_DOWNLOAD_SHA512=b6efec6697a40c3d57bb868f200724d0ea3dba032b557a3ad12d7f58777da2d49864724ad144fd51a484cbfa3cfc8d0ce3ed538753d4e1cbb2fc823e60f9137b; \
 			;; \
 		'arm64') \
 			export GOARCH='arm64' GOOS='linux'; \
-			export KRAKEND_DOWNLOAD_SHA512=2f0cafb823cca214d737666c262384c2b98774575bb6051f3398b1e950de0ae98c2bcf78e650c614a08c8bd58262546460d33002cef2b4da31059be14f58668f; \
+			export KRAKEND_DOWNLOAD_SHA512=3443a85cdd2e8b85a3032d5f819c665f060bd3f1b58102144d582ea740ae2a6dc4dbf59455ea8e82c5a29ef5e20919a543bc146d24c8dd4a0550df40de651030; \
 			;; \
 		*) echo >&2 "error: unsupported architecture '$TARGETARCH' (likely packaging update needed)"; exit 1 ;; \
 	esac; \
