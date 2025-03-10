@@ -25,13 +25,13 @@ RUN set -eux; \
     export GNUPGHOME="$(mktemp -d)"; \
     gpg --batch --keyserver keyserver.ubuntu.com --recv-keys 5B270F2E01E375FD9D5635E25DE6FD698AD6FDD2; \
     gpg --batch --verify krakend.tar.gz.asc krakend.tar.gz; \
-	gpg --kill all; \
-	rm -rf "$GNUPGHOME"; \
-	echo "$KRAKEND_DOWNLOAD_SHA512 *krakend.tar.gz" | sha512sum -c; \
+    gpgconf --kill all; \
+    rm -rf "$GNUPGHOME"; \
+    echo "$KRAKEND_DOWNLOAD_SHA512 *krakend.tar.gz" | sha512sum -c; \
     tar -xzf krakend.tar.gz -C / --strip-components 1; \
-	rm -f krakend.tar.gz krakend.tar.gz.asc; \
-	apk del --no-network .build-deps; \
-	echo '{ "version": @@config_version@@ }' > /etc/krakend/krakend.json
+    rm -f krakend.tar.gz krakend.tar.gz.asc; \
+    apk del --no-network .build-deps; \
+    echo '{ "version": @@config_version@@ }' > /etc/krakend/krakend.json
 
 WORKDIR /etc/krakend
 
