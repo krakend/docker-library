@@ -30,16 +30,18 @@ RUN set -eux; \
     export GNUPGHOME="$(mktemp -d)"; \
     gpg --batch --keyserver keyserver.ubuntu.com --recv-keys 5B270F2E01E375FD9D5635E25DE6FD698AD6FDD2; \
     gpg --batch --verify krakend.tar.gz.asc krakend.tar.gz; \
-    tar xzf krakend.tar.gz -C / --strip-components 1; \
+	gpg --kill all; \
+	rm -rf "$GNUPGHOME"; \
 	echo "$KRAKEND_DOWNLOAD_SHA512 *krakend.tar.gz" | sha512sum -c; \
+    tar -xzf krakend.tar.gz -C / --strip-components 1; \
 	rm -f krakend.tar.gz krakend.tar.gz.asc; \
 	apk del --no-network .build-deps; \
 	echo '{ "version": 3 }' > /etc/krakend/krakend.json
 
 WORKDIR /etc/krakend
 
-COPY docker-entrypoint.sh /
-ENTRYPOINT [ "/docker-entrypoint.sh" ]
+COPY docker-entrypoint.sh /usr/local/bin/
+ENTRYPOINT [ "docker-entrypoint.sh" ]
 
 EXPOSE 8080 8090
 CMD [ "krakend", "run", "-c", "/etc/krakend/krakend.json" ]
