@@ -12,7 +12,7 @@ case "${1:-}" in
 	version       | \
 	check         | \
 	check-plugin  | \
-    test-plugin   | \
+	test-plugin   | \
 	validate      | \
 	audit         | \
 	help          )
