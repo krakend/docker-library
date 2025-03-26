@@ -39,4 +39,4 @@ COPY docker-entrypoint.sh /usr/local/bin/
 ENTRYPOINT [ "docker-entrypoint.sh" ]
 
 EXPOSE 8080 8090
-CMD [ "krakend", "run", "-c", "/etc/krakend/krakend.json" ]
+CMD [ "krakend", "run", "-c", "krakend.json" ]
