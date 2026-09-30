@@ -20,7 +20,7 @@ OUTPUT=$(cat <<EOF
     "alpine": "${ALPINE_VERSION}",
     "sha512sum_amd64": "${amd64checksum}",
     "sha512sum_arm64": "${arm64checksum}",
-    "config_version": 3
+    "config_version": 4
 }
 EOF
 )
