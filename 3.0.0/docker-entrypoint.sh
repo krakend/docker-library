@@ -11,8 +11,6 @@ case "${1:-}" in
 	run           | \
 	version       | \
 	check         | \
-	check-plugin  | \
-	test-plugin   | \
 	validate      | \
 	audit         | \
 	help          )

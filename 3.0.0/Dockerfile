@@ -36,7 +36,7 @@ RUN set -eux; \
     tar -xzf krakend.tar.gz -C / --strip-components 1; \
     rm -f krakend.tar.gz krakend.tar.gz.asc; \
     apk del --no-network .build-deps; \
-    echo '{ "version": 3 }' > /etc/krakend/krakend.json
+    echo '{ "version": 4 }' > /etc/krakend/krakend.json
 
 WORKDIR /etc/krakend
 
